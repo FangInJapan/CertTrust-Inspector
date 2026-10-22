@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f7fb">
+  <meta name="description" content="CertTrust Inspector — 无须安装的浏览器证书连接检测与修复指导。支持中文、日语和英语。">
+  <title>CertTrust Inspector — 证书安全检测中心</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="src/i18n.js" defer></script>
+  <script src="src/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="CertTrust Inspector">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none"><path d="M16 2.5 28 7v8.8c0 7.2-4.2 11.3-12 14.2C8.2 27.1 4 23 4 15.8V7l12-4.5Z" stroke="currentColor" stroke-width="2"/><path d="m10.5 16 4.1 4.2 7.2-8.2" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="brand-copy"><strong>CertTrust</strong><small>INSPECTOR</small></span>
+      </a>
+      <div class="header-actions">
+        <span class="header-label" data-i18n="language">语言</span>
+        <label class="sr-only" for="language">Language</label>
+        <select id="language" class="language-select" aria-label="Language">
+          <option value="zh">简体中文</option>
+          <option value="ja">日本語</option>
+          <option value="en">English</option>
+        </select>
+        <button type="button" class="icon-button" id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark theme">◐</button>
+        <a class="header-github" href="https://github.com/FangInJapan/CertTrust-Inspector" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">GitHub ↗</a>
+      </div>
+    </header>
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span><span data-i18n="eyebrow">BROWSER TRUST DIAGNOSTICS</span></div>
+          <h1 id="hero-title" data-i18n="heroTitle">看清浏览器的<br><em>证书信任风险。</em></h1>
+          <p class="hero-lead" data-i18n="heroLead">针对 eMudhra 事件中的 12 条证书链，检测当前浏览器是否仍能连接风险测试站点，并提供容易理解的解释与修复步骤。</p>
+          <div class="hero-points">
+            <span>✓ <span data-i18n="pointOne">无须安装</span></span>
+            <span>✓ <span data-i18n="pointTwo">不收集检测报告</span></span>
+            <span>✓ <span data-i18n="pointThree">三种语言</span></span>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit orbit-1"></div><div class="orbit orbit-2"></div><div class="orbit orbit-3"></div>
+          <div class="hero-center"><svg viewBox="0 0 80 88" fill="none"><path d="M40 4 73 16v24.7c0 20.1-11.5 32-33 41.3C18.5 72.7 7 60.8 7 40.7V16L40 4Z" fill="currentColor" fill-opacity=".12" stroke="currentColor" stroke-width="2"/><path d="m25 43 11 11 20-23" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="orbit-tag orbit-tag-top">TLS / HTTPS</div><div class="orbit-tag orbit-tag-bottom">CA · TRUST</div>
+        </div>
+      </section>
+
+      <section class="scanner card" aria-labelledby="scan-heading">
+        <div class="section-top">
+          <div><p class="section-kicker" data-i18n="module">MODULE 01 / CONNECTION TEST</p><h2 id="scan-heading" data-i18n="scanTitle">浏览器证书连接检测</h2></div>
+          <span class="mini-label" data-i18n="scope">12 个测试端点</span>
+        </div>
+        <div class="scanner-body">
+          <div id="status-visual" class="status-visual idle" aria-hidden="true"><span class="status-ring"></span><span id="status-symbol">⌕</span></div>
+          <div class="scanner-message" aria-live="polite" aria-atomic="true">
+            <div class="status-caption" data-i18n="statusLabel">当前检测状态</div>
+            <h3 id="status-title" data-i18n="idleTitle">准备就绪</h3>
+            <p id="status-detail" data-i18n="idleDetail">点击下方按钮开始检测。检测会向外部参考网站发送 HTTPS 请求。</p>
+            <p class="test-time" id="test-time"></p>
+          </div>
+          <div class="scan-actions">
+            <button type="button" class="primary-button" id="start-button"><span id="start-label" data-i18n="start">开始检测</span><span aria-hidden="true">→</span></button>
+            <p class="subtle" data-i18n="consent">由你主动开始检测，不会自动扫描。</p>
+          </div>
+        </div>
+        <div class="scan-progress" id="scan-progress" hidden><div class="progress-track"><span id="progress-fill"></span></div><span id="progress-label">0 / 12</span></div>
+        <div class="stats">
+          <div><div class="stat-value" id="stat-total">12</div><div class="stat-title" data-i18n="statTotal">测试项目</div></div>
+          <div><div class="stat-value danger" id="stat-risk">—</div><div class="stat-title" data-i18n="statRisk">风险连通</div></div>
+          <div><div class="stat-value success" id="stat-not-connected">—</div><div class="stat-title" data-i18n="statNotConnected">未能连通</div></div>
+          <div><div class="stat-value warning" id="stat-uncertain">—</div><div class="stat-title" data-i18n="statUncertain">超时 / 待确认</div></div>
+        </div>
+        <div class="interpretation"><strong data-i18n="important">重要说明</strong><p data-i18n="limitNote">浏览器网页无法判断连接失败是由证书拦截、DNS、代理还是网络故障引起。“未能连通”不等于已证实安全。</p></div>
+      </section>
+
+      <section class="results card" aria-labelledby="results-heading">
+        <div class="section-top">
+          <div><p class="section-kicker" data-i18n="moduleTwo">MODULE 02 / EVIDENCE</p><h2 id="results-heading" data-i18n="resultsTitle">检测明细</h2></div>
+          <div class="result-toolbar"><button class="small-button" type="button" id="export-json" disabled data-i18n="export">导出 JSON</button><button class="small-button" type="button" id="print-report" disabled data-i18n="print">打印 / PDF</button></div>
+        </div>
+        <p class="section-description" data-i18n="resultsIntro">每项对应一个特定证书链的测试站点。仅表示当前浏览器与当前网络下的连接表现。</p>
+        <div id="results-list" class="results-list" aria-live="polite"></div>
+        <div class="control-note" id="control-note" data-i18n="controlIdle">参考站连通性：未检测。</div>
+      </section>
+
+      <section class="guidance card" aria-labelledby="guide-heading">
+        <div class="section-top">
+          <div><p class="section-kicker" data-i18n="moduleThree">MODULE 03 / REMEDIATION</p><h2 id="guide-heading" data-i18n="guideTitle">出现红色后，怎么处理？</h2></div>
+          <span class="mini-label" data-i18n="guideTag">按设备选择</span>
+        </div>
+        <p class="section-description" data-i18n="guideIntro">先更新系统和浏览器，再重新检测。不要随意删除系统根证书或执行陌生脚本。</p>
+        <div class="os-tabs" id="os-tabs" role="tablist" aria-label="Operating system">
+          <button type="button" role="tab" data-os="windows" aria-selected="true">Windows</button>
+          <button type="button" role="tab" data-os="mac" aria-selected="false">macOS</button>
+          <button type="button" role="tab" data-os="ios" aria-selected="false">iPhone / iPad</button>
+          <button type="button" role="tab" data-os="android" aria-selected="false">Android</button>
+          <button type="button" role="tab" data-os="linux" aria-selected="false">Linux</button>
+        </div>
+        <div id="os-content" class="os-content" role="tabpanel"></div>
+        <div class="caution"><strong data-i18n="cautionTitle">不要这样修复</strong><p data-i18n="cautionText">不要忽略证书警告、关闭 HTTPS 安全检查、直接删除不熟悉的根证书，或运行未审核的管理员脚本。更新后仍标红时，请保存明细并咨询专业人员。</p></div>
+      </section>
+
+      <section class="knowledge-grid">
+        <article class="card knowledge" aria-labelledby="learn-title">
+          <p class="section-kicker" data-i18n="moduleFour">UNDERSTAND THE ISSUE</p>
+          <h2 id="learn-title" data-i18n="learnTitle">这次到底发生了什么？</h2>
+          <p data-i18n="learnText">网站的 HTTPS 证书相当于网络上的身份证。eMudhra 部分中间 CA 的密钥生成存在缺陷，攻击者可能伪造证书；如果同时具备网络拦截条件，而设备尚未封锁风险证书，就可能冒充可信网站。</p>
+          <details><summary data-i18n="faqOne">绿码是否代表整台设备安全？</summary><p data-i18n="faqOneA">不代表。这里只测试当前浏览器和网络，且网页无法验证所有证书失败原因。其他应用可能采用不同的证书库。</p></details>
+          <details><summary data-i18n="faqTwo">红色是否说明我的账号已经泄露？</summary><p data-i18n="faqTwoA">不代表。红色仅表示风险测试地址可连接，需要检查更新与复核，不能证明发生过攻击。</p></details>
+          <details><summary data-i18n="faqThree">检测站点无法访问怎么办？</summary><p data-i18n="faqThreeA">先检查网络、代理或 DNS；稍后重试并与原始检测站交叉验证。连通性异常时本工具不会宣称检测通过。</p></details>
+        </article>
+        <article class="card knowledge sources" aria-labelledby="sources-title">
+          <p class="section-kicker" data-i18n="moduleFive">TRANSPARENCY</p>
+          <h2 id="sources-title" data-i18n="sourcesTitle">隐私与参考资料</h2>
+          <p data-i18n="privacyText">检测在你的浏览器内执行，结果仅保存在当前页面内存中。导出操作由你主动触发。本站不运行第三方访问统计；外部测试站和 GitHub Pages 仍可能记录常规访问日志。</p>
+          <div class="source-links">
+            <a href="https://emudhra.we-have-a-problem.com/#check" target="_blank" rel="noopener noreferrer"><span data-i18n="sourceOne">原始 eMudhra 检测网站</span><span>↗</span></a>
+            <a href="https://github.com/Goldppx/Certificate-Health-Code" target="_blank" rel="noopener noreferrer"><span data-i18n="sourceTwo">参考项目 Certificate-Health-Code</span><span>↗</span></a>
+            <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2083449" target="_blank" rel="noopener noreferrer"><span data-i18n="sourceThree">Mozilla 安全事件记录</span><span>↗</span></a>
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer class="footer"><span>CertTrust Inspector <span class="footer-dot">·</span> <span data-i18n="footer">开源、透明、隐私优先</span></span><span>v1.0.0 <span class="footer-dot">·</span> <a href="https://github.com/FangInJapan/CertTrust-Inspector" target="_blank" rel="noopener noreferrer">GitHub</a></span></footer>
+  </div>
+</body>
+</html>
