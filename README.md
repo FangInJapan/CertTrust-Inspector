@@ -4,6 +4,8 @@
 
 ## 简体中文
 
+**当前版本：V1.1.0。** 视觉与交互已升级，公开网页的功能仍需按下列建议完成真实浏览器验收。
+
 针对 eMudhra 证书事件的轻量级、隐私优先浏览器连接检测页面，使用**原生 HTML / CSS / JavaScript**独立实现，无需构建系统或第三方前端依赖。
 
 ### 功能
@@ -12,6 +14,9 @@
 - 简体中文 / 日语 / 英语
 - 响应式布局与深浅主题
 - Windows、macOS、iOS/iPadOS、Android、Linux 更新与复核建议
+- 环形饼图实时显示风险连通、未能连通、超时、待检测项目的比例
+- 液态玻璃风格的自适应界面、动画盾牌与轻量动效（尊重系统“减少动态效果”设置）
+- 模块 03 一键生成包含完整 JSON 检测报告的多语言 AI 求助提示词（本地生成、手动复制，不连接任何 AI API）
 - JSON 报告导出和打印 / 保存 PDF
 - 检测结果仅保留在页面内存；语言及主题使用本地浏览器存储；无第三方分析脚本
 
@@ -23,7 +28,7 @@
 
 此检查依赖 [eMudhra 测试站](https://emudhra.we-have-a-problem.com/#check)。如果站点下线或环境发生变化，检查结果可能失去意义。用户应该优先安装官方系统/浏览器更新、使用原始检测站交叉核对；不要禁用证书检查或直接运行未经核实的管理脚本。
 
-**隐私**：页面不上传或持久化保存检测报告，也不集成流量统计。启动检测后，浏览器会访问第三方测试域名；该站与 GitHub Pages 主机仍可保留常规 IP、请求头等日志。浏览器可保存语言/主题偏好。
+**隐私**：页面不上传或持久化保存检测报告，也不集成流量统计。AI 提示词在本机浏览器内生成，只有用户主动复制并粘贴到其他 AI 服务后，内容才会被该服务处理。启动检测后，浏览器会访问第三方测试域名；该站与 GitHub Pages 主机仍可保留常规 IP、请求头等日志。浏览器可保存语言/主题偏好。
 
 ### 部署到 GitHub Pages
 
@@ -48,6 +53,14 @@ src/
 README.md
 \`\`\`
 
+### V1.1 验收要点
+
+1. 默认状态环形图为 0/12，开始检测后随已完成项目数量变化，扫描盾牌有动画；风险连接显示红色，失败请求显示绿色（仅代表“未能连通”），超时显示黄色。
+2. 全部无法连接但正常参考站可达：提示“本轮未发现风险连接”，仍强调网页无法确定失败原因。
+3. 模块 03 的“生成 AI 求助提示词”按钮在检测之前不可用；检测之后可打开弹窗，完整 JSON 报告、当前 OS 及安全注意事项出现在文本内，支持复制和编辑。
+4. 确认中文、日语、英语、深色模式、窄屏手机和“减少动态效果”设置可用。
+5. 本项目不能单独验证最终用户的 HTTPS 安全；不要使用不安全证书绕过的方式进行真实攻击测试。
+
 ### 测试建议
 
 在 Chrome、Edge、Firefox 和 Safari 的桌面及手机版本检查：排版、语言切换、主题、手动开始测试、超时、参考站不可达、结果导出和打印。特别要用模拟失败或隔离网络的方式验证：失败时**不能**显示“已确认安全”。目前尚未声称完成跨浏览器端到端测试。
@@ -70,7 +83,7 @@ GitHub Pages: Settings → Pages → Deploy from a branch → main / (root).
 
 ## English
 
-A static, privacy-first browser connection checker for 12 eMudhra affected TLS test endpoints, with Chinese/Japanese/English UI, OS-specific guidance, and local report export.
+A static, privacy-first browser connection checker for 12 eMudhra affected TLS test endpoints, with Chinese/Japanese/English UI, live donut charts, liquid-glass styling, OS-specific guidance, local report export, and locally generated AI troubleshooting prompts (no automatic uploads).
 
 **Important**: A failed fetch cannot distinguish TLS rejection from DNS, proxy, or network errors. No successful connection must **not** be interpreted as proof that a device is safe. Install official updates and cross-check with the [original test](https://emudhra.we-have-a-problem.com/#check).
 
