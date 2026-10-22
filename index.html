@@ -35,33 +35,28 @@
       </div>
     </header>
     <main id="main">
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <div class="eyebrow"><span class="eyebrow-dot"></span><span data-i18n="eyebrow">BROWSER TRUST DIAGNOSTICS</span></div>
-          <h1 id="hero-title" data-i18n="heroTitle">看清浏览器的<br><em>证书信任风险。</em></h1>
-          <p class="hero-lead" data-i18n="heroLead">针对 eMudhra 事件中的 12 条证书链，检测当前浏览器是否仍能连接风险测试站点，并提供容易理解的解释与修复步骤。</p>
-          <div class="hero-points">
-            <span>✓ <span data-i18n="pointOne">无须安装</span></span>
-            <span>✓ <span data-i18n="pointTwo">不收集检测报告</span></span>
-            <span>✓ <span data-i18n="pointThree">三种语言</span></span>
-          </div>
-        </div>
-        <div class="hero-art" aria-hidden="true">
-          <div class="orbit orbit-1"></div><div class="orbit orbit-2"></div><div class="orbit orbit-3"></div>
-          <div class="hero-center"><svg viewBox="0 0 80 88" fill="none"><path d="M40 4 73 16v24.7c0 20.1-11.5 32-33 41.3C18.5 72.7 7 60.8 7 40.7V16L40 4Z" fill="currentColor" fill-opacity=".12" stroke="currentColor" stroke-width="2"/><path d="m25 43 11 11 20-23" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <div class="orbit-tag orbit-tag-top">TLS / HTTPS</div><div class="orbit-tag orbit-tag-bottom">CA · TRUST</div>
-        </div>
-      </section>
-
       <section class="scanner card" aria-labelledby="scan-heading">
         <div class="section-top">
-          <div><p class="section-kicker" data-i18n="module">MODULE 01 / CONNECTION TEST</p><h2 id="scan-heading" data-i18n="scanTitle">浏览器证书连接检测</h2></div>
+          <div class="scan-intro"><p class="section-kicker" data-i18n="module">MODULE 01 / CONNECTION TEST</p><h1 id="scan-heading" data-i18n="scanTitle">浏览器证书安全检测</h1><p class="scan-lead" data-i18n="heroLead">检查 12 项 eMudhra 风险证书连接，快速了解当前浏览器的检测结果。</p></div>
           <span class="mini-label" data-i18n="scope">12 个测试端点</span>
         </div>
         <div class="scanner-body">
-          <div id="status-visual" class="status-visual idle" aria-hidden="true"><span class="status-ring"></span><span id="status-symbol">⌕</span></div>
+          <div id="status-visual" class="status-visual idle" aria-hidden="true">
+            <div class="status-ambient"></div>
+            <span class="status-orbit orbit-outer"></span><span class="status-orbit orbit-inner"></span>
+            <div class="status-disc">
+              <svg class="status-svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                <path class="shield-outline" d="M32 5 52 12v17c0 13-7.5 23-20 29C19.5 52 12 42 12 29V12L32 5Z" stroke="currentColor" stroke-width="2.7" stroke-linejoin="round"/>
+                <path class="icon-check" d="m22 32 7 7 14-15" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path class="icon-attention" d="M32 19v16m0 9v1" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                <circle class="icon-scan" cx="31" cy="30" r="11" stroke="currentColor" stroke-width="3"/><path class="icon-scan" d="m40 39 7 7" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+              <span class="status-sweep"></span>
+            </div>
+            <span class="status-spark spark-one"></span><span class="status-spark spark-two"></span>
+          </div>
           <div class="scanner-message" aria-live="polite" aria-atomic="true">
-            <div class="status-caption" data-i18n="statusLabel">当前检测状态</div>
+            <div class="status-caption"><span class="status-beacon"></span><span data-i18n="statusLabel">当前检测状态</span></div>
             <h3 id="status-title" data-i18n="idleTitle">准备就绪</h3>
             <p id="status-detail" data-i18n="idleDetail">点击下方按钮开始检测。检测会向外部参考网站发送 HTTPS 请求。</p>
             <p class="test-time" id="test-time"></p><a class="verification-link" href="https://emudhra.we-have-a-problem.com/#check" target="_blank" rel="noopener noreferrer" data-i18n="reviewOriginal">前往原始检测网站复核 ↗</a>
@@ -72,11 +67,19 @@
           </div>
         </div>
         <div class="scan-progress" id="scan-progress" hidden><div class="progress-track"><span id="progress-fill"></span></div><span id="progress-label">0 / 12</span></div>
-        <div class="stats">
-          <div><div class="stat-value" id="stat-total">12</div><div class="stat-title" data-i18n="statTotal">测试项目</div></div>
-          <div><div class="stat-value danger" id="stat-risk">—</div><div class="stat-title" data-i18n="statRisk">风险连通</div></div>
-          <div><div class="stat-value success" id="stat-not-connected">—</div><div class="stat-title" data-i18n="statNotConnected">未能连通</div></div>
-          <div><div class="stat-value warning" id="stat-uncertain">—</div><div class="stat-title" data-i18n="statUncertain">超时 / 待确认</div></div>
+        <div class="outcome-panel" aria-labelledby="chart-heading">
+          <div class="chart-column">
+            <p class="chart-heading" id="chart-heading" data-i18n="chartTitle">检测结果分布</p>
+            <div class="donut-chart" id="result-chart" role="img" aria-label="12 项等待检测">
+              <div class="chart-center"><strong id="chart-done">0<span>/12</span></strong><small id="chart-label" data-i18n="chartProgress">已完成</small></div>
+            </div>
+          </div>
+          <div class="chart-legend" role="group" aria-label="Test result breakdown">
+            <div class="legend-row"><span class="legend-icon legend-risk"></span><span data-i18n="statRisk">风险连通</span><strong id="stat-risk">0</strong></div>
+            <div class="legend-row"><span class="legend-icon legend-good"></span><span data-i18n="statNotConnected">未能连通</span><strong id="stat-not-connected">0</strong></div>
+            <div class="legend-row"><span class="legend-icon legend-unknown"></span><span data-i18n="statUncertain">超时 / 待确认</span><strong id="stat-uncertain">0</strong></div>
+            <div class="legend-row"><span class="legend-icon legend-active"></span><span data-i18n="chartRemaining">等待 / 正在检测</span><strong id="stat-remaining">12</strong></div>
+          </div>
         </div>
         <div class="interpretation"><strong data-i18n="important">重要说明</strong><p data-i18n="limitNote">浏览器网页无法判断连接失败是由证书拦截、DNS、代理还是网络故障引起。“未能连通”不等于已证实安全。</p></div>
       </section>
@@ -105,6 +108,10 @@
           <button type="button" role="tab" data-os="linux" aria-selected="false">Linux</button>
         </div>
         <div id="os-content" class="os-content" role="tabpanel"></div>
+        <div class="ai-assist-panel">
+          <div class="ai-assist-copy"><span class="ai-spark" aria-hidden="true">✦</span><div><h3 data-i18n="aiCardTitle">让 AI 帮你分析检测结果</h3><p data-i18n="aiCardText">一键生成包含完整 JSON 检测报告的求助提示词；由你自行复制给常用的 AI。</p></div></div>
+          <button type="button" id="ai-generate" class="ai-button" disabled><span aria-hidden="true">✧</span><span data-i18n="aiGenerate">生成 AI 求助提示词</span><span aria-hidden="true">→</span></button>
+        </div>
         <div class="caution"><strong data-i18n="cautionTitle">不要这样修复</strong><p data-i18n="cautionText">不要忽略证书警告、关闭 HTTPS 安全检查、直接删除不熟悉的根证书，或运行未审核的管理员脚本。更新后仍标红时，请保存明细并咨询专业人员。</p></div>
       </section>
 
@@ -128,8 +135,15 @@
           </div>
         </article>
       </section>
+      <dialog class="ai-dialog" id="ai-dialog" aria-labelledby="ai-dialog-title">
+        <div class="dialog-heading"><div><p class="section-kicker" data-i18n="aiDialogEyebrow">PERSONALIZED DIAGNOSTIC PROMPT</p><h2 id="ai-dialog-title" data-i18n="aiDialogTitle">复制给你的 AI 助手</h2></div><button type="button" id="ai-close-icon" class="icon-button" aria-label="Close">×</button></div>
+        <p class="dialog-hint" data-i18n="aiDialogHint">提示词包含完整检测 JSON 和你选择的设备类型，不会自动上传给任何 AI。复制前可以检查并编辑。</p>
+        <label class="sr-only" for="ai-prompt" data-i18n="aiPromptLabel">AI 求助提示词</label>
+        <textarea id="ai-prompt" rows="17" spellcheck="false"></textarea>
+        <div class="dialog-footer"><span id="copy-feedback" class="copy-feedback" role="status" aria-live="polite"></span><button type="button" id="ai-close" class="small-button" data-i18n="aiClose">关闭</button><button type="button" id="ai-copy" class="primary-button"><span data-i18n="aiCopy">复制提示词</span><span aria-hidden="true">⧉</span></button></div>
+      </dialog>
     </main>
-    <footer class="footer"><span>CertTrust Inspector <span class="footer-dot">·</span> <span data-i18n="footer">开源、透明、隐私优先</span></span><span>v1.0.1 <span class="footer-dot">·</span> <a href="https://github.com/FangInJapan/CertTrust-Inspector" target="_blank" rel="noopener noreferrer">GitHub</a></span></footer>
+    <footer class="footer"><span>CertTrust Inspector <span class="footer-dot">·</span> <span data-i18n="footer">开源、透明、隐私优先</span></span><span>v1.1.0 <span class="footer-dot">·</span> <a href="https://github.com/FangInJapan/CertTrust-Inspector" target="_blank" rel="noopener noreferrer">GitHub</a></span></footer>
   </div>
 </body>
 </html>
