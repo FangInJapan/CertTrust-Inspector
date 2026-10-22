@@ -113,8 +113,7 @@ function translate(){
  $('language').value=lang;
  document.querySelectorAll('[data-i18n]').forEach(el=>{
   const key=el.dataset.i18n;
-  if(key==='heroTitle')el.innerHTML=t(key);
-  else el.textContent=t(key);
+  el.textContent=t(key);
  });
  $('start-label').textContent=running?t('running'):lastRun?t('again'):t('start');
  setStatus();paintRows();paintControl();renderSteps();applyTheme();
